@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="Domen/Domen.csproj" Id="0d17b7d3-4f76-42de-810a-db505bdc090f" />
+  </Folder>
+  <Folder Name="/tests/" />
+</Solution>

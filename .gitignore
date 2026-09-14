@@ -1,0 +1,12 @@
+bin/
+obj/
+.vs/
+.vscode/
+*.user
+*.suo
+TestResults/
+*.trx
+/data/*.json
+!/data/.gitkeep
+.DS_Store
+Thumbs.db
