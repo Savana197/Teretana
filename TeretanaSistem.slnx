@@ -2,6 +2,7 @@
   <Folder Name="/src/">
     <Project Path="DBBroker/DBBroker.csproj" Id="b4a193cf-3881-4fbb-98fb-b15cca818996" />
     <Project Path="Domen/Common.csproj" Id="0d17b7d3-4f76-42de-810a-db505bdc090f" />
+    <Project Path="SistemskeOperacije/SistemskeOperacije.csproj" Id="88557259-0086-4450-a3da-26758cf9013f" />
   </Folder>
   <Folder Name="/tests/" />
 </Solution>

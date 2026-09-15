@@ -60,7 +60,7 @@ namespace Common.Komunikacija
         DodeliKvalifikacijuRadniku,
 
         /// <summary>Vraćanje liste kvalifikacija radnika kojima je istekao rok važenja.</summary>
-        VratiIsteklaKvalifikacije
+        VratiIstekleKvalifikacije
     }
 
 }
