@@ -10,3 +10,5 @@ TestResults/
 !/data/.gitkeep
 .DS_Store
 Thumbs.db
+Baza/TeretanaSistem.mdf
+Baza/TeretanaSistem.ldf

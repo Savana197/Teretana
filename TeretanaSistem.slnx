@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/src/">
-    <Project Path="Domen/Domen.csproj" Id="0d17b7d3-4f76-42de-810a-db505bdc090f" />
+    <Project Path="DBBroker/DBBroker.csproj" Id="b4a193cf-3881-4fbb-98fb-b15cca818996" />
+    <Project Path="Domen/Common.csproj" Id="0d17b7d3-4f76-42de-810a-db505bdc090f" />
   </Folder>
   <Folder Name="/tests/" />
 </Solution>
