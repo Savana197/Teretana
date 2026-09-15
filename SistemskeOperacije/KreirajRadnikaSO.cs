@@ -14,6 +14,7 @@ namespace SistemskeOperacije
         public KreirajRadnikaSO(Radnik radnik)
         {
             this.radnik = radnik;
+            radnik.Aktivan = true;
         }
 
         /// <inheritdoc/>

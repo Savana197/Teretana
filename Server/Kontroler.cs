@@ -30,6 +30,12 @@ namespace Server
             so.ExecuteTemplate();
             return so.Result!;
         }
+        /// <summary>Kreira novu kvalifikaciju.</summary>
+        public void KreirajKvalifikaciju(Kvalifikacija kvalifikacija)
+        {
+            KreirajKvalifikacijuSO so = new KreirajKvalifikacijuSO(kvalifikacija);
+            so.ExecuteTemplate();
+        }
 
         /// <summary>Kreira novog radnika.</summary>
         public void KreirajRadnika(Radnik radnik)
@@ -80,7 +86,19 @@ namespace Server
             ObrisiOsobuSO so = new ObrisiOsobuSO(osobaID);
             so.ExecuteTemplate();
         }
-
+        /// <summary>Vraća sve kvalifikacije.</summary>
+        public List<Kvalifikacija> VratiSveKvalifikacije()
+        {
+            VratiSveKvalifikacijeSO so = new VratiSveKvalifikacijeSO();
+            so.ExecuteTemplate();
+            return so.Result;
+        }
+        public List<Kategorija> VratiSveKategorije()
+        {
+            VratiSveKategorijeSO so = new VratiSveKategorijeSO();
+            so.ExecuteTemplate();
+            return (List<Kategorija>)so.Result!;
+        }
         /// <summary>Pretražuje osobe po imenu/prezimenu/JMBG-u.</summary>
         public List<Osoba> PretraziOsobu(string kriterijum)
         {
@@ -96,17 +114,17 @@ namespace Server
             so.ExecuteTemplate();
         }
 
-        /// <summary>Briše trenera.</summary>
-        public void ObrisiTrenera(int trenerID)
+        /// <summary>Menja podatke trenera, uključujući status aktivnosti.</summary>
+        public void PromeniTrenera(Trener trener)
         {
-            ObrisiTreneraSO so = new ObrisiTreneraSO(trenerID);
+            PromeniTreneraSO so = new PromeniTreneraSO(trener);
             so.ExecuteTemplate();
         }
 
-        /// <summary>Vraća sve trenere.</summary>
-        public List<Trener> VratiSveTrenere()
+        /// <summary>Vraća sve aktivne trenere.</summary>
+        public List<Trener> VratiSveAktivneTrenere()
         {
-            VratiSveTrenereSO so = new VratiSveTrenereSO();
+            VratiSveAktivneTrenereSO so = new VratiSveAktivneTrenereSO();
             so.ExecuteTemplate();
             return so.Result;
         }
@@ -140,12 +158,19 @@ namespace Server
             so.ExecuteTemplate();
         }
 
-        /// <summary>Vraća kvalifikacije radnika kojima je istekao rok.</summary>
-        public List<RadnikKvalifikacija> VratiIsteklaKvalifikacije()
+        /// <summary>Dodaje stavku (trening) u okviru postojećeg članstva.</summary>
+        public void DodajStavkuClanstva(StavkaČlanstva stavka)
         {
-            VratiIstekleKvalifikacijeSO so = new VratiIstekleKvalifikacijeSO();
+            DodajStavkuClanstvaSO so = new DodajStavkuClanstvaSO(stavka);
             so.ExecuteTemplate();
-            return so.Result;
+        }
+        /// <summary>Vraća aktivno članstvo date osobe.</summary>
+        public Članstvo VratiAktivnoClanstvoOsobe(int osobaID)
+        {
+            VratiAktivnoClanstvoOsobeSO so = new VratiAktivnoClanstvoOsobeSO(osobaID);
+            so.ExecuteTemplate();
+            return so.Result!;
+
         }
     }
 }

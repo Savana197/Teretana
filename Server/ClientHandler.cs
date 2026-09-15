@@ -62,11 +62,20 @@ namespace Server
             {
                 switch (zahtev.Operacija)
                 {
+                    case Operacija.KreirajKvalifikaciju:
+                        Kontroler.Instance.KreirajKvalifikaciju(serializer.ReadType<Kvalifikacija>(zahtev.Objekat)!);
+                        break;
                     case Operacija.Prijava:
                         odgovor.Objekat = Kontroler.Instance.PrijaviSe(serializer.ReadType<Radnik>(zahtev.Objekat)!);
                         break;
+                    case Operacija.VratiAktivnoClanstvoOsobe:
+                        odgovor.Objekat = Kontroler.Instance.VratiAktivnoClanstvoOsobe(serializer.ReadType<int>(zahtev.Objekat));
+                        break;
                     case Operacija.KreirajRadnika:
                         Kontroler.Instance.KreirajRadnika(serializer.ReadType<Radnik>(zahtev.Objekat)!);
+                        break;
+                    case Operacija.VratiSveKvalifikacije:
+                        odgovor.Objekat = Kontroler.Instance.VratiSveKvalifikacije();
                         break;
                     case Operacija.PromeniRadnika:
                         Kontroler.Instance.PromeniRadnika(serializer.ReadType<Radnik>(zahtev.Objekat)!);
@@ -92,11 +101,11 @@ namespace Server
                     case Operacija.KreirajTrenera:
                         Kontroler.Instance.KreirajTrenera(serializer.ReadType<Trener>(zahtev.Objekat)!);
                         break;
-                    case Operacija.ObrisiTrenera:
-                        Kontroler.Instance.ObrisiTrenera(serializer.ReadType<int>(zahtev.Objekat));
+                    case Operacija.PromeniTrenera:
+                        Kontroler.Instance.PromeniTrenera(serializer.ReadType<Trener>(zahtev.Objekat)!);
                         break;
-                    case Operacija.VratiSveTrenere:
-                        odgovor.Objekat = Kontroler.Instance.VratiSveTrenere();
+                    case Operacija.VratiSveAktivneTrenere:
+                        odgovor.Objekat = Kontroler.Instance.VratiSveAktivneTrenere();
                         break;
                     case Operacija.KreirajClanstvo:
                         Kontroler.Instance.KreirajClanstvo(serializer.ReadType<Članstvo>(zahtev.Objekat)!);
@@ -110,8 +119,11 @@ namespace Server
                     case Operacija.DodeliKvalifikacijuRadniku:
                         Kontroler.Instance.DodeliKvalifikacijuRadniku(serializer.ReadType<RadnikKvalifikacija>(zahtev.Objekat)!);
                         break;
-                    case Operacija.VratiIstekleKvalifikacije:
-                        odgovor.Objekat = Kontroler.Instance.VratiIsteklaKvalifikacije();
+                    case Operacija.DodajStavkuClanstva:
+                        Kontroler.Instance.DodajStavkuClanstva(serializer.ReadType<StavkaČlanstva>(zahtev.Objekat)!);
+                        break;
+                    case Operacija.VratiSveKategorije:
+                        odgovor.Objekat = Kontroler.Instance.VratiSveKategorije();
                         break;
                 }
             }
