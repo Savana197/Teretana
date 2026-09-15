@@ -3,7 +3,7 @@
 namespace SistemskeOperacije
 {
     /// <summary>Vraća listu kvalifikacija radnika kojima je istekao rok važenja.</summary>
-    public class VratiIsteklaKvalifikacijeSO : SOBase
+    public class VratiIstekleKvalifikacijeSO : SOBase
     {
         /// <summary>Rezultat - lista isteklih kvalifikacija radnika.</summary>
         public List<RadnikKvalifikacija> Result { get; set; } = new();

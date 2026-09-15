@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
+﻿using System.Net.Sockets;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Common.Komunikacija
 {
@@ -44,17 +39,18 @@ namespace Common.Komunikacija
         /// <returns>Deserijalizovani objekat.</returns>
         public T Receive<T>()
         {
-            string json = reader.ReadLine();
-            return JsonSerializer.Deserialize<T>(json);
+            string json = reader.ReadLine()!;
+            return JsonSerializer.Deserialize<T>(json)!;
         }
 
-        /// <summary>Konvertuje generički objekat (npr. JsonElement primljen unutar Zahtev/Odgovor) u konkretan tip.</summary>
+        /// <summary>Konvertuje generički objekat (npr. JsonElement primljen unutar Zahtev/Odgovor) u konkretan tip - radi i za klase i za proste tipove (int, decimal...).</summary>
         /// <typeparam name="T">Ciljni tip u koji se podaci konvertuju.</typeparam>
         /// <param name="podaci">Sirovi podaci za konverziju, ili null.</param>
-        /// <returns>Konvertovani objekat, ili null ako su ulazni podaci null.</returns>
-        public T ReadType<T>(object podaci) where T : class
+        /// <returns>Konvertovani objekat, ili default vrednost tipa T ako su ulazni podaci null.</returns>
+        public T? ReadType<T>(object? podaci)
         {
-            return podaci == null ? null : JsonSerializer.Deserialize<T>((JsonElement)podaci);
+            if (podaci == null) return default;
+            return JsonSerializer.Deserialize<T>((JsonElement)podaci);
         }
 
         /// <summary>Zatvara mrežni tok i pridružene čitač/pisač.</summary>
