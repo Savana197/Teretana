@@ -12,6 +12,7 @@ namespace SistemskeOperacije
         public KreirajClanstvoSO(Članstvo clanstvo)
         {
             this.clanstvo = clanstvo;
+            clanstvo.Status = StatusČlanstva.Aktivno;
         }
 
         /// <inheritdoc/>

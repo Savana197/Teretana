@@ -12,6 +12,7 @@ namespace SistemskeOperacije
         public KreirajTreneraSO(Trener trener)
         {
             this.trener = trener;
+            trener.Aktivan = true;
         }
 
         /// <inheritdoc/>

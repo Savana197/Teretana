@@ -6,5 +6,7 @@
     <Project Path="Server/Server.csproj" Id="7abeb102-e460-493a-b142-1842d37cfb64" />
     <Project Path="SistemskeOperacije/SistemskeOperacije.csproj" Id="88557259-0086-4450-a3da-26758cf9013f" />
   </Folder>
-  <Folder Name="/tests/" />
+  <Folder Name="/tests/">
+    <Project Path="Testovi/Testovi.csproj" />
+  </Folder>
 </Solution>
