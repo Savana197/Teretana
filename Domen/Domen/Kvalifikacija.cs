@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,12 +24,35 @@ namespace Common.Domen
     /// </summary>
     public class Kvalifikacija : IEntity
     {
-        /// <summary>Jedinstveni identifikator kvalifikacije.</summary>
-        public int KvalifikacijaID { get; set; }
-        /// <summary>Naziv kvalifikacije.</summary>
-        public required string Naziv { get; set; }
-        /// <summary>Nivo stručnosti ove kvalifikacije.</summary>
-        public Nivo Nivo { get; set; }
+        private int kvalifikacijaID;
+        private string naziv = "";
+        private Nivo nivo;
+
+        /// <summary>Jedinstveni identifikator kvalifikacije. Ne sme biti negativan.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako je vrednost negativna.</exception>
+        public int KvalifikacijaID
+        {
+            get => kvalifikacijaID;
+            set => kvalifikacijaID = Validacija.NenegativanBroj(value, nameof(KvalifikacijaID));
+        }
+
+        /// <summary>Naziv kvalifikacije. Ne sme biti null, sadržati samo razmake, niti biti duži od 50 karaktera.</summary>
+        /// <exception cref="ArgumentNullException">Ako je vrednost null.</exception>
+        /// <exception cref="ArgumentException">Ako vrednost sadrži samo razmake ili je predugačka.</exception>
+        public required string Naziv
+        {
+            get => naziv;
+            set => naziv = Validacija.ObaveznoPolje(value, nameof(Naziv), 50);
+        }
+
+        /// <summary>Nivo stručnosti ove kvalifikacije. Mora biti jedna od definisanih vrednosti enuma <see cref="Nivo"/>.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako vrednost nije definisana u enumu.</exception>
+        public Nivo Nivo
+        {
+            get => nivo;
+            set => nivo = Validacija.ValidnaEnumVrednost(value, nameof(Nivo));
+        }
+
         /// <summary>Naziv tabele u bazi za ovaj entitet.</summary>
         public string TableName => "Kvalifikacija";
 

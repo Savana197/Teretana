@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -24,20 +24,57 @@ namespace Common.Domen
     /// </summary>
     public class Članstvo : IEntity
     {
-        /// <summary>Jedinstveni identifikator članstva.</summary>
-        public int ČlanstvoID { get; set; }
-        /// <summary>Strani ključ ka osobi kojoj članstvo pripada.</summary>
-        public int OsobaID { get; set; }
-        /// <summary>Strani ključ ka radniku koji je kreirao članstvo.</summary>
-        public int RadnikID { get; set; }
+        private int članstvoID;
+        private int osobaID;
+        private int radnikID;
+        private decimal cena;
+        private StatusČlanstva status;
+
+        /// <summary>Jedinstveni identifikator članstva. Ne sme biti negativan.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako je vrednost negativna.</exception>
+        public int ČlanstvoID
+        {
+            get => članstvoID;
+            set => članstvoID = Validacija.NenegativanBroj(value, nameof(ČlanstvoID));
+        }
+
+        /// <summary>Strani ključ ka osobi kojoj članstvo pripada. Ne sme biti negativan.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako je vrednost negativna.</exception>
+        public int OsobaID
+        {
+            get => osobaID;
+            set => osobaID = Validacija.NenegativanBroj(value, nameof(OsobaID));
+        }
+
+        /// <summary>Strani ključ ka radniku koji je kreirao članstvo. Ne sme biti negativan.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako je vrednost negativna.</exception>
+        public int RadnikID
+        {
+            get => radnikID;
+            set => radnikID = Validacija.NenegativanBroj(value, nameof(RadnikID));
+        }
+
         /// <summary>Datum početka važenja članstva.</summary>
         public DateTime DatumPočetka { get; set; }
         /// <summary>Datum isteka važenja članstva.</summary>
         public DateTime DatumIsteka { get; set; }
-        /// <summary>Ukupna cena članstva.</summary>
-        public decimal Cena { get; set; }
-        /// <summary>Trenutni status članstva.</summary>
-        public StatusČlanstva Status { get; set; }
+
+        /// <summary>Ukupna cena članstva. Ne sme biti negativna.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako je vrednost negativna.</exception>
+        public decimal Cena
+        {
+            get => cena;
+            set => cena = Validacija.NenegativanBroj(value, nameof(Cena));
+        }
+
+        /// <summary>Trenutni status članstva. Mora biti jedna od definisanih vrednosti enuma <see cref="StatusČlanstva"/>.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako vrednost nije definisana u enumu.</exception>
+        public StatusČlanstva Status
+        {
+            get => status;
+            set => status = Validacija.ValidnaEnumVrednost(value, nameof(Status));
+        }
+
         /// <summary>Naziv tabele u bazi za ovaj entitet.</summary>
         public string TableName => "Clanstvo";
 

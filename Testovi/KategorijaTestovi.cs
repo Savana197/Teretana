@@ -42,4 +42,32 @@ public class KategorijaTestovi
         Kategorija kategorija = new Kategorija { Naziv = "" };
         Assert.Equal("", kategorija.Join);
     }
+
+    [Fact]
+    public void KategorijaID_NegativnaVrednost_BacaIzuzetak()
+    {
+        Kategorija kategorija = new Kategorija { Naziv = "" };
+        Assert.Throws<ArgumentOutOfRangeException>(() => kategorija.KategorijaID = -1);
+    }
+
+    [Fact]
+    public void Naziv_Null_BacaIzuzetak()
+    {
+        Kategorija kategorija = new Kategorija { Naziv = "" };
+        Assert.Throws<ArgumentNullException>(() => kategorija.Naziv = null!);
+    }
+
+    [Fact]
+    public void Popust_Negativan_BacaIzuzetak()
+    {
+        Kategorija kategorija = new Kategorija { Naziv = "" };
+        Assert.Throws<ArgumentOutOfRangeException>(() => kategorija.Popust = -5m);
+    }
+
+    [Fact]
+    public void Popust_VeciOd100_BacaIzuzetak()
+    {
+        Kategorija kategorija = new Kategorija { Naziv = "" };
+        Assert.Throws<ArgumentOutOfRangeException>(() => kategorija.Popust = 150m);
+    }
 }

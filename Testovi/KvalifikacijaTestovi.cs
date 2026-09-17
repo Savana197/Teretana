@@ -35,4 +35,25 @@ public class KvalifikacijaTestovi
         Kvalifikacija kvalifikacija = new Kvalifikacija { Naziv = "" };
         Assert.Equal("", kvalifikacija.Join);
     }
+
+    [Fact]
+    public void KvalifikacijaID_NegativnaVrednost_BacaIzuzetak()
+    {
+        Kvalifikacija kvalifikacija = new Kvalifikacija { Naziv = "" };
+        Assert.Throws<ArgumentOutOfRangeException>(() => kvalifikacija.KvalifikacijaID = -1);
+    }
+
+    [Fact]
+    public void Naziv_Null_BacaIzuzetak()
+    {
+        Kvalifikacija kvalifikacija = new Kvalifikacija { Naziv = "" };
+        Assert.Throws<ArgumentNullException>(() => kvalifikacija.Naziv = null!);
+    }
+
+    [Fact]
+    public void Nivo_NedefinisanaVrednostEnuma_BacaIzuzetak()
+    {
+        Kvalifikacija kvalifikacija = new Kvalifikacija { Naziv = "" };
+        Assert.Throws<ArgumentOutOfRangeException>(() => kvalifikacija.Nivo = (Nivo)99);
+    }
 }

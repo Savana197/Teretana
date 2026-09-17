@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +13,34 @@ namespace Common.Domen
     /// </summary>
     public class RadnikKvalifikacija : IEntity
     {
-        /// <summary>Strani ključ ka radniku (deo složenog ključa).</summary>
-        public int RadnikID { get; set; }
-        /// <summary>Strani ključ ka kvalifikaciji (deo složenog ključa).</summary>
-        public int KvalifikacijaID { get; set; }
-        /// <summary>Datum sticanja kvalifikacije.</summary>
-        public DateTime DatumSticanja { get; set; }
+        private int radnikID;
+        private int kvalifikacijaID;
+        private DateTime datumSticanja;
+
+        /// <summary>Strani ključ ka radniku (deo složenog ključa). Ne sme biti negativan.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako je vrednost negativna.</exception>
+        public int RadnikID
+        {
+            get => radnikID;
+            set => radnikID = Validacija.NenegativanBroj(value, nameof(RadnikID));
+        }
+
+        /// <summary>Strani ključ ka kvalifikaciji (deo složenog ključa). Ne sme biti negativan.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako je vrednost negativna.</exception>
+        public int KvalifikacijaID
+        {
+            get => kvalifikacijaID;
+            set => kvalifikacijaID = Validacija.NenegativanBroj(value, nameof(KvalifikacijaID));
+        }
+
+        /// <summary>Datum sticanja kvalifikacije. Ne sme biti u budućnosti.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako je datum u budućnosti.</exception>
+        public DateTime DatumSticanja
+        {
+            get => datumSticanja;
+            set => datumSticanja = Validacija.NijeUBuducnosti(value, nameof(DatumSticanja));
+        }
+
         /// <summary>Datum isteka kvalifikacije, ako kvalifikacija ističe (null ako ne ističe).</summary>
         public DateTime? DatumIsteka { get; set; }
         /// <summary>Naziv tabele u bazi za ovaj entitet.</summary>

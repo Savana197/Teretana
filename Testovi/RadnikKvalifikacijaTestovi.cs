@@ -65,4 +65,25 @@ public class RadnikKvalifikacijaTestovi
         RadnikKvalifikacija rk = new RadnikKvalifikacija();
         Assert.Equal("", rk.Join);
     }
+
+    [Fact]
+    public void RadnikID_NegativnaVrednost_BacaIzuzetak()
+    {
+        RadnikKvalifikacija rk = new RadnikKvalifikacija();
+        Assert.Throws<ArgumentOutOfRangeException>(() => rk.RadnikID = -1);
+    }
+
+    [Fact]
+    public void KvalifikacijaID_NegativnaVrednost_BacaIzuzetak()
+    {
+        RadnikKvalifikacija rk = new RadnikKvalifikacija();
+        Assert.Throws<ArgumentOutOfRangeException>(() => rk.KvalifikacijaID = -1);
+    }
+
+    [Fact]
+    public void DatumSticanja_UBuducnosti_BacaIzuzetak()
+    {
+        RadnikKvalifikacija rk = new RadnikKvalifikacija();
+        Assert.Throws<ArgumentOutOfRangeException>(() => rk.DatumSticanja = DateTime.Today.AddDays(1));
+    }
 }

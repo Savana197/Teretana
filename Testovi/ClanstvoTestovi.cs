@@ -67,4 +67,32 @@ public class ClanstvoTestovi
         Članstvo clanstvo = new Članstvo();
         Assert.Equal("", clanstvo.Join);
     }
+
+    [Fact]
+    public void ČlanstvoID_NegativnaVrednost_BacaIzuzetak()
+    {
+        Članstvo clanstvo = new Članstvo();
+        Assert.Throws<ArgumentOutOfRangeException>(() => clanstvo.ČlanstvoID = -1);
+    }
+
+    [Fact]
+    public void OsobaID_NegativnaVrednost_BacaIzuzetak()
+    {
+        Članstvo clanstvo = new Članstvo();
+        Assert.Throws<ArgumentOutOfRangeException>(() => clanstvo.OsobaID = -1);
+    }
+
+    [Fact]
+    public void Cena_Negativna_BacaIzuzetak()
+    {
+        Članstvo clanstvo = new Članstvo();
+        Assert.Throws<ArgumentOutOfRangeException>(() => clanstvo.Cena = -100m);
+    }
+
+    [Fact]
+    public void Status_NedefinisanaVrednostEnuma_BacaIzuzetak()
+    {
+        Članstvo clanstvo = new Članstvo();
+        Assert.Throws<ArgumentOutOfRangeException>(() => clanstvo.Status = (StatusČlanstva)99);
+    }
 }

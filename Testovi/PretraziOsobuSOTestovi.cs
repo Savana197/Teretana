@@ -10,7 +10,7 @@ public class PretraziOsobuSOTestovi : SOTestBase
     public void PretraziOsobu_PronalaziPoJMBG()
     {
         string nazivKat = $"Kat_{Guid.NewGuid():N}";
-        string jmbg = Guid.NewGuid().ToString("N")[..13];
+        string jmbg = TestPodaci.NoviJmbg();
 
         try
         {

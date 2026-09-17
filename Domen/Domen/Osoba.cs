@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,24 +13,94 @@ namespace Common.Domen
     /// </summary>
     public class Osoba : IEntity
     {
-        /// <summary>Jedinstveni identifikator osobe.</summary>
-        public int OsobaID { get; set; }
-        /// <summary>Strani ključ ka kategoriji kojoj osoba pripada.</summary>
-        public int KategorijaID { get; set; }
-        /// <summary>Ime osobe.</summary>
-        public required string Ime { get; set; }
-        /// <summary>Prezime osobe.</summary>
-        public required string Prezime { get; set; }
-        /// <summary>Jedinstveni matični broj građana.</summary>
-        public required string JMBG { get; set; }
-        /// <summary>Datum rođenja osobe.</summary>
-        public DateTime DatumRodjenja { get; set; }
-        /// <summary>Email adresa osobe.</summary>
-        public required string Email { get; set; }
-        /// <summary>Adresa stanovanja osobe.</summary>
-        public required string Adresa { get; set; }
-        /// <summary>Broj telefona osobe.</summary>
-        public required string BrojTelefona { get; set; }
+        private int osobaID;
+        private int kategorijaID;
+        private string ime = "";
+        private string prezime = "";
+        private string jmbg = "";
+        private string email = "";
+        private string adresa = "";
+        private string brojTelefona = "";
+        private DateTime datumRodjenja;
+
+        /// <summary>Jedinstveni identifikator osobe. Ne sme biti negativan.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako je vrednost negativna.</exception>
+        public int OsobaID
+        {
+            get => osobaID;
+            set => osobaID = Validacija.NenegativanBroj(value, nameof(OsobaID));
+        }
+
+        /// <summary>Strani ključ ka kategoriji kojoj osoba pripada. Ne sme biti negativan.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako je vrednost negativna.</exception>
+        public int KategorijaID
+        {
+            get => kategorijaID;
+            set => kategorijaID = Validacija.NenegativanBroj(value, nameof(KategorijaID));
+        }
+
+        /// <summary>Ime osobe. Ne sme biti null, sadržati samo razmake, niti biti duže od 50 karaktera.</summary>
+        /// <exception cref="ArgumentNullException">Ako je vrednost null.</exception>
+        /// <exception cref="ArgumentException">Ako vrednost sadrži samo razmake ili je predugačka.</exception>
+        public required string Ime
+        {
+            get => ime;
+            set => ime = Validacija.ObaveznoPolje(value, nameof(Ime), 50);
+        }
+
+        /// <summary>Prezime osobe. Ne sme biti null, sadržati samo razmake, niti biti duže od 50 karaktera.</summary>
+        /// <exception cref="ArgumentNullException">Ako je vrednost null.</exception>
+        /// <exception cref="ArgumentException">Ako vrednost sadrži samo razmake ili je predugačka.</exception>
+        public required string Prezime
+        {
+            get => prezime;
+            set => prezime = Validacija.ObaveznoPolje(value, nameof(Prezime), 50);
+        }
+
+        /// <summary>Jedinstveni matični broj građana. Ako je popunjen, mora sadržati tačno 13 cifara.</summary>
+        /// <exception cref="ArgumentNullException">Ako je vrednost null.</exception>
+        /// <exception cref="ArgumentException">Ako vrednost nema tačno 13 cifara.</exception>
+        public required string JMBG
+        {
+            get => jmbg;
+            set => jmbg = Validacija.Jmbg(value);
+        }
+
+        /// <summary>Datum rođenja osobe. Ne sme biti u budućnosti.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako je datum u budućnosti.</exception>
+        public DateTime DatumRodjenja
+        {
+            get => datumRodjenja;
+            set => datumRodjenja = Validacija.NijeUBuducnosti(value, nameof(DatumRodjenja));
+        }
+
+        /// <summary>Email adresa osobe. Ako je popunjena, mora biti validnog formata.</summary>
+        /// <exception cref="ArgumentNullException">Ako je vrednost null.</exception>
+        /// <exception cref="ArgumentException">Ako vrednost nije validna email adresa.</exception>
+        public required string Email
+        {
+            get => email;
+            set => email = Validacija.Email(value);
+        }
+
+        /// <summary>Adresa stanovanja osobe. Ne sme biti null niti duža od 150 karaktera.</summary>
+        /// <exception cref="ArgumentNullException">Ako je vrednost null.</exception>
+        /// <exception cref="ArgumentException">Ako vrednost sadrži samo razmake ili je predugačka.</exception>
+        public required string Adresa
+        {
+            get => adresa;
+            set => adresa = Validacija.ObaveznoPolje(value, nameof(Adresa), 150);
+        }
+
+        /// <summary>Broj telefona osobe. Ako je popunjen, mora sadržati samo cifre i imati bar 6 cifara.</summary>
+        /// <exception cref="ArgumentNullException">Ako je vrednost null.</exception>
+        /// <exception cref="ArgumentException">Ako vrednost nije validan broj telefona.</exception>
+        public required string BrojTelefona
+        {
+            get => brojTelefona;
+            set => brojTelefona = Validacija.BrojTelefona(value);
+        }
+
         /// <summary>Naziv tabele u bazi za ovaj entitet.</summary>
         public string TableName => "Osoba";
 

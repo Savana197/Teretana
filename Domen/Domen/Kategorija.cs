@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -14,12 +14,35 @@ namespace Common.Domen
     /// </summary>
     public class Kategorija : IEntity
     {
-        /// <summary>Jedinstveni identifikator kategorije.</summary>
-        public int KategorijaID { get; set; }
-        /// <summary>Naziv kategorije.</summary>
-        public required string Naziv { get; set; }
-        /// <summary>Procenat popusta koji se primenjuje na osobe ove kategorije.</summary>
-        public decimal Popust { get; set; }
+        private int kategorijaID;
+        private string naziv = "";
+        private decimal popust;
+
+        /// <summary>Jedinstveni identifikator kategorije. Ne sme biti negativan.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako je vrednost negativna.</exception>
+        public int KategorijaID
+        {
+            get => kategorijaID;
+            set => kategorijaID = Validacija.NenegativanBroj(value, nameof(KategorijaID));
+        }
+
+        /// <summary>Naziv kategorije. Ne sme biti null, sadržati samo razmake, niti biti duži od 50 karaktera.</summary>
+        /// <exception cref="ArgumentNullException">Ako je vrednost null.</exception>
+        /// <exception cref="ArgumentException">Ako vrednost sadrži samo razmake ili je predugačka.</exception>
+        public required string Naziv
+        {
+            get => naziv;
+            set => naziv = Validacija.ObaveznoPolje(value, nameof(Naziv), 50);
+        }
+
+        /// <summary>Procenat popusta koji se primenjuje na osobe ove kategorije. Mora biti između 0 i 100.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako vrednost nije u opsegu 0-100.</exception>
+        public decimal Popust
+        {
+            get => popust;
+            set => popust = Validacija.Procenat(value, nameof(Popust));
+        }
+
         /// <summary>Naziv tabele u bazi za ovaj entitet.</summary>
         public string TableName => "Kategorija";
 

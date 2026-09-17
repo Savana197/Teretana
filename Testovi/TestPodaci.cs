@@ -101,4 +101,17 @@ public static class TestPodaci
         List<IEntity> rezultat = broker.GetByCondition(new Članstvo(), $"OsobaID = {osobaID}");
         return rezultat.Cast<Članstvo>().First().ČlanstvoID;
     }
+
+    /// <summary>
+    /// Generiše jedinstven, validan JMBG za potrebe testova (tačno 13 cifara).
+    /// Ne koristi se Guid.NewGuid().ToString("N") direktno jer heksadecimalni
+    /// zapis GUID-a može sadržati slova (a-f), a domenska klasa Osoba sada
+    /// zahteva da JMBG bude isključivo cifre.
+    /// </summary>
+    public static string NoviJmbg()
+    {
+        long osnova = DateTime.Now.Ticks % 10_000_000_000L;
+        int nasumicno = Random.Shared.Next(0, 1000);
+        return $"{osnova:D10}{nasumicno:D3}";
+    }
 }

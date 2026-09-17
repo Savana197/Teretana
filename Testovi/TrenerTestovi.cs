@@ -78,4 +78,39 @@ public class TrenerTestovi
         Trener trener = new Trener { Ime = "", Prezime = "", Specijalnost = "", BrojTelefona = "", Email = "" };
         Assert.Equal("", trener.Join);
     }
+
+    [Fact]
+    public void TrenerID_NegativnaVrednost_BacaIzuzetak()
+    {
+        Trener trener = new Trener { Ime = "", Prezime = "", Specijalnost = "", BrojTelefona = "", Email = "" };
+        Assert.Throws<ArgumentOutOfRangeException>(() => trener.TrenerID = -1);
+    }
+
+    [Fact]
+    public void Specijalnost_Null_BacaIzuzetak()
+    {
+        Trener trener = new Trener { Ime = "", Prezime = "", Specijalnost = "", BrojTelefona = "", Email = "" };
+        Assert.Throws<ArgumentNullException>(() => trener.Specijalnost = null!);
+    }
+
+    [Fact]
+    public void Email_BezZnakaEt_BacaIzuzetak()
+    {
+        Trener trener = new Trener { Ime = "", Prezime = "", Specijalnost = "", BrojTelefona = "", Email = "" };
+        Assert.Throws<ArgumentException>(() => trener.Email = "markotest.com");
+    }
+
+    [Fact]
+    public void GodineIskustva_NegativnaVrednost_BacaIzuzetak()
+    {
+        Trener trener = new Trener { Ime = "", Prezime = "", Specijalnost = "", BrojTelefona = "", Email = "" };
+        Assert.Throws<ArgumentOutOfRangeException>(() => trener.GodineIskustva = -1);
+    }
+
+    [Fact]
+    public void GodineIskustva_Nerealna_BacaIzuzetak()
+    {
+        Trener trener = new Trener { Ime = "", Prezime = "", Specijalnost = "", BrojTelefona = "", Email = "" };
+        Assert.Throws<ArgumentOutOfRangeException>(() => trener.GodineIskustva = 100);
+    }
 }

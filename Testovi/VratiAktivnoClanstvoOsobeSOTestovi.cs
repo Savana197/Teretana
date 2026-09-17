@@ -10,7 +10,7 @@ public class VratiAktivnoClanstvoOsobeSOTestovi : SOTestBase
     public void VratiAktivnoClanstvoOsobe_VracaAktivnoClanstvo()
     {
         string nazivKat = $"Kat_{Guid.NewGuid():N}";
-        string jmbg = Guid.NewGuid().ToString("N")[..13];
+        string jmbg = TestPodaci.NoviJmbg();
         string emailRadnik = $"radnik_{Guid.NewGuid():N}@test.com";
         int kategorijaID = 0;
         int osobaID = 0;
@@ -43,7 +43,7 @@ public class VratiAktivnoClanstvoOsobeSOTestovi : SOTestBase
     public void VratiAktivnoClanstvoOsobe_NemaAktivnoClanstvo_BacaIzuzetak()
     {
         string nazivKat = $"Kat_{Guid.NewGuid():N}";
-        string jmbg = Guid.NewGuid().ToString("N")[..13];
+        string jmbg = TestPodaci.NoviJmbg();
         int kategorijaID = 0;
         int osobaID = 0;
 

@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -22,20 +22,70 @@ namespace Common.Domen
     /// </summary>
     public class StavkaČlanstva : IEntity
     {
-        /// <summary>Redni broj stavke unutar članstva (deo složenog ključa).</summary>
-        public int Rb { get; set; }
-        /// <summary>Strani ključ ka članstvu kom stavka pripada (deo složenog ključa).</summary>
-        public int ČlanstvoID { get; set; }
-        /// <summary>Strani ključ ka treneru koji vodi ovu stavku treninga.</summary>
-        public int TrenerID { get; set; }
-        /// <summary>Vrsta treninga (individualni ili grupni).</summary>
-        public VrstaTreninga VrstaTreninga { get; set; }
-        /// <summary>Ukupan broj termina uključenih u ovu stavku.</summary>
-        public int BrojTermina { get; set; }
-        /// <summary>Broj do sada iskorišćenih termina.</summary>
-        public int Iskorišćeno { get; set; }
-        /// <summary>Cena ove stavke članstva.</summary>
-        public decimal CenaStavke { get; set; }
+        private int rb;
+        private int članstvoID;
+        private int trenerID;
+        private VrstaTreninga vrstaTreninga;
+        private int brojTermina;
+        private int iskorišćeno;
+        private decimal cenaStavke;
+
+        /// <summary>Redni broj stavke unutar članstva (deo složenog ključa). Ne sme biti negativan.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako je vrednost negativna.</exception>
+        public int Rb
+        {
+            get => rb;
+            set => rb = Validacija.NenegativanBroj(value, nameof(Rb));
+        }
+
+        /// <summary>Strani ključ ka članstvu kom stavka pripada (deo složenog ključa). Ne sme biti negativan.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako je vrednost negativna.</exception>
+        public int ČlanstvoID
+        {
+            get => članstvoID;
+            set => članstvoID = Validacija.NenegativanBroj(value, nameof(ČlanstvoID));
+        }
+
+        /// <summary>Strani ključ ka treneru koji vodi ovu stavku treninga. Ne sme biti negativan.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako je vrednost negativna.</exception>
+        public int TrenerID
+        {
+            get => trenerID;
+            set => trenerID = Validacija.NenegativanBroj(value, nameof(TrenerID));
+        }
+
+        /// <summary>Vrsta treninga (individualni ili grupni). Mora biti jedna od definisanih vrednosti enuma <see cref="VrstaTreninga"/>.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako vrednost nije definisana u enumu.</exception>
+        public VrstaTreninga VrstaTreninga
+        {
+            get => vrstaTreninga;
+            set => vrstaTreninga = Validacija.ValidnaEnumVrednost(value, nameof(VrstaTreninga));
+        }
+
+        /// <summary>Ukupan broj termina uključenih u ovu stavku. Ne sme biti negativan.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako je vrednost negativna.</exception>
+        public int BrojTermina
+        {
+            get => brojTermina;
+            set => brojTermina = Validacija.NenegativanBroj(value, nameof(BrojTermina));
+        }
+
+        /// <summary>Broj do sada iskorišćenih termina. Ne sme biti negativan.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako je vrednost negativna.</exception>
+        public int Iskorišćeno
+        {
+            get => iskorišćeno;
+            set => iskorišćeno = Validacija.NenegativanBroj(value, nameof(Iskorišćeno));
+        }
+
+        /// <summary>Cena ove stavke članstva. Ne sme biti negativna.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako je vrednost negativna.</exception>
+        public decimal CenaStavke
+        {
+            get => cenaStavke;
+            set => cenaStavke = Validacija.NenegativanBroj(value, nameof(CenaStavke));
+        }
+
         /// <summary>Naziv tabele u bazi za ovaj entitet.</summary>
         public string TableName => "StavkaClanstva";
 

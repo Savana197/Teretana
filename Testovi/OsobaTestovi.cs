@@ -65,4 +65,60 @@ public class OsobaTestovi
         Osoba osoba = new Osoba { Ime = "", Prezime = "", JMBG = "", Email = "", Adresa = "", BrojTelefona = "" };
         Assert.Equal("", osoba.Join);
     }
+
+    [Fact]
+    public void OsobaID_NegativnaVrednost_BacaIzuzetak()
+    {
+        Osoba osoba = new Osoba { Ime = "", Prezime = "", JMBG = "", Email = "", Adresa = "", BrojTelefona = "" };
+        Assert.Throws<ArgumentOutOfRangeException>(() => osoba.OsobaID = -1);
+    }
+
+    [Fact]
+    public void KategorijaID_NegativnaVrednost_BacaIzuzetak()
+    {
+        Osoba osoba = new Osoba { Ime = "", Prezime = "", JMBG = "", Email = "", Adresa = "", BrojTelefona = "" };
+        Assert.Throws<ArgumentOutOfRangeException>(() => osoba.KategorijaID = -5);
+    }
+
+    [Fact]
+    public void Ime_Null_BacaIzuzetak()
+    {
+        Osoba osoba = new Osoba { Ime = "", Prezime = "", JMBG = "", Email = "", Adresa = "", BrojTelefona = "" };
+        Assert.Throws<ArgumentNullException>(() => osoba.Ime = null!);
+    }
+
+    [Fact]
+    public void JMBG_PogresnaDuzina_BacaIzuzetak()
+    {
+        Osoba osoba = new Osoba { Ime = "", Prezime = "", JMBG = "", Email = "", Adresa = "", BrojTelefona = "" };
+        Assert.Throws<ArgumentException>(() => osoba.JMBG = "12345");
+    }
+
+    [Fact]
+    public void JMBG_SadrziSlova_BacaIzuzetak()
+    {
+        Osoba osoba = new Osoba { Ime = "", Prezime = "", JMBG = "", Email = "", Adresa = "", BrojTelefona = "" };
+        Assert.Throws<ArgumentException>(() => osoba.JMBG = "abcdefghijklm");
+    }
+
+    [Fact]
+    public void DatumRodjenja_UBuducnosti_BacaIzuzetak()
+    {
+        Osoba osoba = new Osoba { Ime = "", Prezime = "", JMBG = "", Email = "", Adresa = "", BrojTelefona = "" };
+        Assert.Throws<ArgumentOutOfRangeException>(() => osoba.DatumRodjenja = DateTime.Today.AddDays(1));
+    }
+
+    [Fact]
+    public void Email_BezTacke_BacaIzuzetak()
+    {
+        Osoba osoba = new Osoba { Ime = "", Prezime = "", JMBG = "", Email = "", Adresa = "", BrojTelefona = "" };
+        Assert.Throws<ArgumentException>(() => osoba.Email = "ana@test");
+    }
+
+    [Fact]
+    public void BrojTelefona_SadrziSlova_BacaIzuzetak()
+    {
+        Osoba osoba = new Osoba { Ime = "", Prezime = "", JMBG = "", Email = "", Adresa = "", BrojTelefona = "" };
+        Assert.Throws<ArgumentException>(() => osoba.BrojTelefona = "06AB12345");
+    }
 }

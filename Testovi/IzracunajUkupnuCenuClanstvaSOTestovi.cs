@@ -10,7 +10,7 @@ public class IzracunajUkupnuCenuClanstvaSOTestovi : SOTestBase
     public void IzracunajUkupnuCenu_PrimenjujePopustKategorijeNaCenuPlusStavke()
     {
         string nazivKat = $"Kat_{Guid.NewGuid():N}";
-        string jmbg = Guid.NewGuid().ToString("N")[..13];
+        string jmbg = TestPodaci.NoviJmbg();
         string emailRadnik = $"radnik_{Guid.NewGuid():N}@test.com";
         string emailTrener = $"trener_{Guid.NewGuid():N}@test.com";
         int kategorijaID = 0;

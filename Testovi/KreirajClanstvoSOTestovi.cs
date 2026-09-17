@@ -10,7 +10,7 @@ public class KreirajClanstvoSOTestovi : SOTestBase
     public void KreirajClanstvo_UpisujeČlanstvoUBazu()
     {
         string nazivKat = $"Kat_{Guid.NewGuid():N}";
-        string jmbg = Guid.NewGuid().ToString("N")[..13];
+        string jmbg = TestPodaci.NoviJmbg();
         string emailRadnik = $"radnik_{Guid.NewGuid():N}@test.com";
         int osobaID = 0;
 
@@ -50,7 +50,7 @@ public class KreirajClanstvoSOTestovi : SOTestBase
     public void KreirajClanstvo_UvekPostavljaStatusNaAktivno_BezObziraNaUlaz()
     {
         string nazivKat = $"Kat_{Guid.NewGuid():N}";
-        string jmbg = Guid.NewGuid().ToString("N")[..13];
+        string jmbg = TestPodaci.NoviJmbg();
         string emailRadnik = $"radnik_{Guid.NewGuid():N}@test.com";
         int osobaID = 0;
 

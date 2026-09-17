@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Security.Principal;
 
 namespace Common.Domen
@@ -9,18 +9,66 @@ namespace Common.Domen
     /// </summary>
     public class Radnik : IEntity
     {
-        /// <summary>Jedinstveni identifikator radnika.</summary>
-        public int RadnikID { get; set; }
-        /// <summary>Ime radnika.</summary>
-        public required string Ime { get; set; }
-        /// <summary>Prezime radnika.</summary>
-        public required string Prezime { get; set; }
-        /// <summary>Šifra za prijavu na sistem.</summary>
-        public required string Sifra { get; set; }
-        /// <summary>Email adresa - koristi se i kao identifikator prilikom prijave.</summary>
-        public required string Email { get; set; }
-        /// <summary>Broj telefona radnika.</summary>
-        public required string BrojTelefona { get; set; }
+        private int radnikID;
+        private string ime = "";
+        private string prezime = "";
+        private string sifra = "";
+        private string email = "";
+        private string brojTelefona = "";
+
+        /// <summary>Jedinstveni identifikator radnika. Ne sme biti negativan.</summary>
+        /// <exception cref="ArgumentOutOfRangeException">Ako je vrednost negativna.</exception>
+        public int RadnikID
+        {
+            get => radnikID;
+            set => radnikID = Validacija.NenegativanBroj(value, nameof(RadnikID));
+        }
+
+        /// <summary>Ime radnika. Ne sme biti null, sadržati samo razmake, niti biti duže od 50 karaktera.</summary>
+        /// <exception cref="ArgumentNullException">Ako je vrednost null.</exception>
+        /// <exception cref="ArgumentException">Ako vrednost sadrži samo razmake ili je predugačka.</exception>
+        public required string Ime
+        {
+            get => ime;
+            set => ime = Validacija.ObaveznoPolje(value, nameof(Ime), 50);
+        }
+
+        /// <summary>Prezime radnika. Ne sme biti null, sadržati samo razmake, niti biti duže od 50 karaktera.</summary>
+        /// <exception cref="ArgumentNullException">Ako je vrednost null.</exception>
+        /// <exception cref="ArgumentException">Ako vrednost sadrži samo razmake ili je predugačka.</exception>
+        public required string Prezime
+        {
+            get => prezime;
+            set => prezime = Validacija.ObaveznoPolje(value, nameof(Prezime), 50);
+        }
+
+        /// <summary>Šifra za prijavu na sistem. Ne sme biti null, a ako je popunjena mora imati bar 4 karaktera.</summary>
+        /// <exception cref="ArgumentNullException">Ako je vrednost null.</exception>
+        /// <exception cref="ArgumentException">Ako je vrednost kraća od 4 karaktera.</exception>
+        public required string Sifra
+        {
+            get => sifra;
+            set => sifra = Validacija.Lozinka(value);
+        }
+
+        /// <summary>Email adresa - koristi se i kao identifikator prilikom prijave. Ako je popunjena, mora biti validnog formata.</summary>
+        /// <exception cref="ArgumentNullException">Ako je vrednost null.</exception>
+        /// <exception cref="ArgumentException">Ako vrednost nije validna email adresa.</exception>
+        public required string Email
+        {
+            get => email;
+            set => email = Validacija.Email(value);
+        }
+
+        /// <summary>Broj telefona radnika. Ako je popunjen, mora sadržati samo cifre i imati bar 6 cifara.</summary>
+        /// <exception cref="ArgumentNullException">Ako je vrednost null.</exception>
+        /// <exception cref="ArgumentException">Ako vrednost nije validan broj telefona.</exception>
+        public required string BrojTelefona
+        {
+            get => brojTelefona;
+            set => brojTelefona = Validacija.BrojTelefona(value);
+        }
+
         /// <summary>Da li je radnik trenutno aktivan (zaposlen) u sistemu.</summary>
         public bool Aktivan { get; set; }
         /// <summary>Naziv tabele u bazi za ovaj entitet.</summary>

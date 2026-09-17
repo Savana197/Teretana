@@ -58,4 +58,32 @@ public class StavkaClanstvaTestovi
         StavkaČlanstva stavka = new StavkaČlanstva();
         Assert.Equal("", stavka.Join);
     }
+
+    [Fact]
+    public void Rb_NegativnaVrednost_BacaIzuzetak()
+    {
+        StavkaČlanstva stavka = new StavkaČlanstva();
+        Assert.Throws<ArgumentOutOfRangeException>(() => stavka.Rb = -1);
+    }
+
+    [Fact]
+    public void VrstaTreninga_NedefinisanaVrednostEnuma_BacaIzuzetak()
+    {
+        StavkaČlanstva stavka = new StavkaČlanstva();
+        Assert.Throws<ArgumentOutOfRangeException>(() => stavka.VrstaTreninga = (VrstaTreninga)99);
+    }
+
+    [Fact]
+    public void BrojTermina_Negativan_BacaIzuzetak()
+    {
+        StavkaČlanstva stavka = new StavkaČlanstva();
+        Assert.Throws<ArgumentOutOfRangeException>(() => stavka.BrojTermina = -1);
+    }
+
+    [Fact]
+    public void CenaStavke_Negativna_BacaIzuzetak()
+    {
+        StavkaČlanstva stavka = new StavkaČlanstva();
+        Assert.Throws<ArgumentOutOfRangeException>(() => stavka.CenaStavke = -50m);
+    }
 }

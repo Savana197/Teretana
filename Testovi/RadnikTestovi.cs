@@ -74,4 +74,67 @@ public class RadnikTestovi
         Radnik radnik = new Radnik { Ime = "", Prezime = "", Sifra = "", Email = "", BrojTelefona = "" };
         Assert.Equal("", radnik.Join);
     }
+
+    [Fact]
+    public void RadnikID_NegativnaVrednost_BacaIzuzetak()
+    {
+        Radnik radnik = new Radnik { Ime = "", Prezime = "", Sifra = "", Email = "", BrojTelefona = "" };
+        Assert.Throws<ArgumentOutOfRangeException>(() => radnik.RadnikID = -1);
+    }
+
+    [Fact]
+    public void Ime_Null_BacaIzuzetak()
+    {
+        Radnik radnik = new Radnik { Ime = "", Prezime = "", Sifra = "", Email = "", BrojTelefona = "" };
+        Assert.Throws<ArgumentNullException>(() => radnik.Ime = null!);
+    }
+
+    [Fact]
+    public void Ime_SamoRazmaci_BacaIzuzetak()
+    {
+        Radnik radnik = new Radnik { Ime = "", Prezime = "", Sifra = "", Email = "", BrojTelefona = "" };
+        Assert.Throws<ArgumentException>(() => radnik.Ime = "   ");
+    }
+
+    [Fact]
+    public void Ime_PredugacakString_BacaIzuzetak()
+    {
+        Radnik radnik = new Radnik { Ime = "", Prezime = "", Sifra = "", Email = "", BrojTelefona = "" };
+        Assert.Throws<ArgumentException>(() => radnik.Ime = new string('a', 51));
+    }
+
+    [Fact]
+    public void Sifra_Null_BacaIzuzetak()
+    {
+        Radnik radnik = new Radnik { Ime = "", Prezime = "", Sifra = "", Email = "", BrojTelefona = "" };
+        Assert.Throws<ArgumentNullException>(() => radnik.Sifra = null!);
+    }
+
+    [Fact]
+    public void Sifra_Prekratka_BacaIzuzetak()
+    {
+        Radnik radnik = new Radnik { Ime = "", Prezime = "", Sifra = "", Email = "", BrojTelefona = "" };
+        Assert.Throws<ArgumentException>(() => radnik.Sifra = "abc");
+    }
+
+    [Fact]
+    public void Email_BezZnakaEt_BacaIzuzetak()
+    {
+        Radnik radnik = new Radnik { Ime = "", Prezime = "", Sifra = "", Email = "", BrojTelefona = "" };
+        Assert.Throws<ArgumentException>(() => radnik.Email = "nevalidanemail.com");
+    }
+
+    [Fact]
+    public void BrojTelefona_SadrziSlova_BacaIzuzetak()
+    {
+        Radnik radnik = new Radnik { Ime = "", Prezime = "", Sifra = "", Email = "", BrojTelefona = "" };
+        Assert.Throws<ArgumentException>(() => radnik.BrojTelefona = "06abcd123");
+    }
+
+    [Fact]
+    public void BrojTelefona_Prekratak_BacaIzuzetak()
+    {
+        Radnik radnik = new Radnik { Ime = "", Prezime = "", Sifra = "", Email = "", BrojTelefona = "" };
+        Assert.Throws<ArgumentException>(() => radnik.BrojTelefona = "123");
+    }
 }
